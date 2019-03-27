@@ -1,6 +1,8 @@
 ﻿Public Class Form1
 
 	'Lab work 4
+	
+	'Declaring global variables
     Private valid As Boolean = False
     Private PricePerPart As Double
     Private Quantity As Double
@@ -14,19 +16,21 @@
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        txtName.Focus()
-        chkboxWholesale.Checked = False
-        txtState.CharacterCasing = CharacterCasing.Upper
-        radioUspostal.Checked = True
+	
+	'These instructions are run right after the form is loaded
+        txtName.Focus()  'set the cursor focus to the Customer name textbox
+        chkboxWholesale.Checked = False  'uncheck the wholesale Checkbox
+        txtState.CharacterCasing = CharacterCasing.Upper   'Set the text in the State check box to upper case
+        radioUspostal.Checked = True 'check the US postal radio button
     End Sub
 
     Private Sub btnCompute_Click(sender As Object, e As EventArgs) Handles btnCompute.Click
         Dim total As Double
-        ValidData()
+        ValidData()  'Call the ValidData function
 
         Cost = (txtPriceperpart.Text * txtQuantity.Text).ToString("n1")
-        ComputeSalesTaxDue()
-        ComputeTransportaionHandling()
+        ComputeSalesTaxDue() 'Call the ComputeSalesTaxDue function
+        ComputeTransportaionHandling() 'Call the ComputeTransportaionHandling function
 
 
         total = Cost + ComputeSalesTaxDue() + ComputeTransportaionHandling()
@@ -37,6 +41,7 @@
         txtShipping.Text = ComputeTransportaionHandling()
     End Sub
 
+	'ComputeTransportaionHandling function
     Private Function ComputeTransportaionHandling()
         If (radioUspostal.Checked = True) Then
             TaxHandling = 0.15
@@ -55,6 +60,8 @@
         Return Handlingcharge + TaxHandling
     End Function
 
+	
+	'ComputeSalesTaxDue function
     Private Function ComputeSalesTaxDue()
         If (txtState.Text = "IL") Then
             SalesTax = 0.07
@@ -71,6 +78,8 @@
         Return SalesTax
     End Function
 
+	
+	'ValidData function
     Private Function ValidData()
 
         If (txtName.Text = String.Empty) Then
